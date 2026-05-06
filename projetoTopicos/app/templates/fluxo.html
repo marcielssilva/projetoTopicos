@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="breadcrumb">
+    Início > {{ item.hierarquia[0] }} > {{ item.hierarquia[1] }}
+</div>
+
+<div class="card">
+    <h2>{{ item.titulo }}</h2>
+
+    {% for linha in item.conteudo.cabecalho %}
+        <p><b>{{ linha }}</b></p>
+    {% endfor %}
+</div>
+
+{% for secao in item.conteudo.secoes %}
+<div class="card">
+    <h3>{{ secao.titulo }}</h3>
+
+    <ol>
+        {% for passo in secao.passos %}
+            <li>{{ passo }}</li>
+        {% endfor %}
+    </ol>
+</div>
+{% endfor %}
+
+<div class="card">
+    <a href="{{ item.conteudo.link_apoio.url }}" target="_blank">
+        <button class="btn">📘 Abrir Material de Apoio</button>
+    </a>
+</div>
+
+<a href="/categoria/{{ item.hierarquia[0] }}">
+    <button class="btn btn-back">⬅ Voltar</button>
+</a>
+
+{% endblock %}

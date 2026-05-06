@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="breadcrumb">
+    Início > {{ categoria }} > {{ sub }}
+</div>
+
+<div class="card">
+    <h2>{{ sub }}</h2>
+
+    {% for item in dados %}
+        <a href="/abrir/{{ item._id }}">
+            <button class="btn">{{ item.titulo }}</button>
+        </a>
+    {% endfor %}
+
+    <a href="/categoria/{{ categoria }}">
+        <button class="btn btn-back">⬅ Voltar</button>
+    </a>
+</div>
+
+{% endblock %}
