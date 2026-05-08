@@ -3,21 +3,27 @@
 {% block content %}
 
 <div class="breadcrumb">
-    Início > {{ categoria }} > {{ sub }}
+    <a href="/">Início</a>
+    <span class="sep">›</span>
+    <a href="/categoria/{{ categoria }}">{{ categoria }}</a>
+    <span class="sep">›</span>
+    <span class="current">{{ sub }}</span>
 </div>
 
 <div class="card">
-    <h2>{{ sub }}</h2>
+    <div class="card-title">
+        <div class="icon">📄</div>
+        {{ sub }}
+    </div>
 
     {% for item in dados %}
-        <a href="/abrir/{{ item._id }}">
-            <button class="btn">{{ item.titulo }}</button>
+        <a href="/abrir/{{ item._id }}" class="btn">
+            🔹 {{ item.titulo }}
+            <span class="btn-arrow">›</span>
         </a>
     {% endfor %}
 
-    <a href="/categoria/{{ categoria }}">
-        <button class="btn btn-back">⬅ Voltar</button>
-    </a>
+    <a href="/categoria/{{ categoria }}" class="btn btn-back">‹ Voltar</a>
 </div>
 
 {% endblock %}

@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card">
+    <div class="card-title">
+        <div class="icon">📥</div>
+        Importar Dados (JSON)
+    </div>
+    <p style="font-size:13.5px; color:var(--muted); margin-bottom:16px;">
+        Cole o conteúdo do seu arquivo JSON abaixo e clique em Importar.<br>
+        Use <strong>?limpar=true</strong> na URL para apagar dados existentes antes de importar.
+    </p>
+    <textarea id="json-input" rows="14" style="width:100%; font-family:monospace; font-size:13px; border:1.5px solid var(--border); border-radius:8px; padding:12px; resize:vertical; outline:none;"></textarea>
+    <div style="display:flex; gap:10px; margin-top:12px; flex-wrap:wrap;">
+        <button onclick="importar(false)" class="btn btn-primary" style="width:auto;">📥 Importar (adicionar)</button>
+        <button onclick="importar(true)"  class="btn btn-apoio"   style="width:auto;">🗑️ Limpar e Importar</button>
+    </div>
+    <div id="resultado" style="margin-top:14px; font-size:14px;"></div>
+</div>
+
+<script>
+async function importar(limpar) {
+    const texto = document.getElementById('json-input').value.trim();
+    const res   = document.getElementById('resultado');
+    if (!texto) { res.innerHTML = '<span style="color:red">Cole o JSON antes de importar.</span>'; return; }
+    let dados;
+    try { dados = JSON.parse(texto); } catch(e) { res.innerHTML = '<span style="color:red">JSON inválido: ' + e.message + '</span>'; return; }
+    res.innerHTML = 'Importando...';
+    try {
+        const r = await fetch('/importar?limpar=' + limpar, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(dados)
+        });
+        const d = await r.json();
+        if (d.importados !== undefined) {
+            res.innerHTML = '<span style="color:green">✅ ' + d.importados + ' documento(s) importado(s) com sucesso!</span>';
+        } else {
+            res.innerHTML = '<span style="color:red">Erro: ' + JSON.stringify(d) + '</span>';
+        }
+    } catch(e) {
+        res.innerHTML = '<span style="color:red">Erro na requisição: ' + e.message + '</span>';
+    }
+}
+</script>
+{% endblock %}

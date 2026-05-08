@@ -3,21 +3,25 @@
 {% block content %}
 
 <div class="breadcrumb">
-    Início > {{ categoria }}
+    <a href="/">Início</a>
+    <span class="sep">›</span>
+    <span class="current">{{ categoria }}</span>
 </div>
 
 <div class="card">
-    <h2>{{ categoria }}</h2>
+    <div class="card-title">
+        <div class="icon">📂</div>
+        {{ categoria }}
+    </div>
 
     {% for sub in subs %}
-        <a href="/conteudos/{{ categoria }}/{{ sub }}">
-            <button class="btn">{{ sub }}</button>
+        <a href="/conteudos/{{ categoria }}/{{ sub }}" class="btn">
+            📋 {{ sub }}
+            <span class="btn-arrow">›</span>
         </a>
     {% endfor %}
 
-    <a href="/">
-        <button class="btn btn-back">⬅ Voltar</button>
-    </a>
+    <a href="/" class="btn btn-back">‹ Voltar ao início</a>
 </div>
 
 {% endblock %}

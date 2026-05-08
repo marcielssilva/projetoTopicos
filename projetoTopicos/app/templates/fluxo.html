@@ -3,37 +3,71 @@
 {% block content %}
 
 <div class="breadcrumb">
-    Início > {{ item.hierarquia[0] }} > {{ item.hierarquia[1] }}
+    <a href="/">Início</a>
+    <span class="sep">›</span>
+    <a href="/categoria/{{ item.categoria }}">{{ item.categoria }}</a>
+    <span class="sep">›</span>
+    <a href="/conteudos/{{ item.categoria }}/{{ item.subcategoria }}">{{ item.subcategoria }}</a>
+    <span class="sep">›</span>
+    <span class="current">{{ item.titulo }}</span>
 </div>
 
-<div class="card">
+<!-- Cabeçalho do Fluxo -->
+<div class="fluxo-header">
     <h2>{{ item.titulo }}</h2>
-
-    {% for linha in item.conteudo.cabecalho %}
-        <p><b>{{ linha }}</b></p>
-    {% endfor %}
+    {% if item.descricao %}
+        <p>{{ item.descricao }}</p>
+    {% endif %}
 </div>
 
-{% for secao in item.conteudo.secoes %}
-<div class="card">
-    <h3>{{ secao.titulo }}</h3>
-
-    <ol>
-        {% for passo in secao.passos %}
-            <li>{{ passo }}</li>
-        {% endfor %}
-    </ol>
+<!-- Tópicos / Seções -->
+{% for topico in item.topicos %}
+<div class="secao-card">
+    <div class="secao-header">
+        <div class="secao-numero">{{ loop.index }}</div>
+        <div class="secao-titulo">{{ topico.titulo }}</div>
+    </div>
+    <div class="secao-body">
+        <ol class="passos-list">
+            {% for passo in topico.passos %}
+                <li>{{ passo }}</li>
+            {% endfor %}
+        </ol>
+    </div>
 </div>
 {% endfor %}
 
+<!-- Material(ais) de Apoio -->
+{% if item.material_apoio %}
 <div class="card">
-    <a href="{{ item.conteudo.link_apoio.url }}" target="_blank">
-        <button class="btn">📘 Abrir Material de Apoio</button>
-    </a>
-</div>
+    <div class="card-title" style="margin-bottom:12px;">
+        <div class="icon">📘</div>
+        Material de Apoio
+    </div>
 
-<a href="/categoria/{{ item.hierarquia[0] }}">
-    <button class="btn btn-back">⬅ Voltar</button>
+    {% if item.material_apoio is iterable and item.material_apoio is not string and item.material_apoio is not mapping %}
+        {# lista de materiais #}
+        <div class="apoio-grid">
+            {% for m in item.material_apoio %}
+                <a href="{{ m.link }}" target="_blank" class="btn btn-apoio" style="margin-bottom:0;">
+                    📎 {{ m.titulo }}
+                    <span class="btn-arrow" style="color:rgba(255,255,255,.7)">↗</span>
+                </a>
+            {% endfor %}
+        </div>
+    {% else %}
+        {# material único (objeto) #}
+        <a href="{{ item.material_apoio.link }}" target="_blank" class="btn btn-apoio">
+            📎 {{ item.material_apoio.titulo }}
+            <span class="btn-arrow" style="color:rgba(255,255,255,.7)">↗</span>
+        </a>
+    {% endif %}
+</div>
+{% endif %}
+
+<!-- Voltar -->
+<a href="/conteudos/{{ item.categoria }}/{{ item.subcategoria }}" class="btn btn-back" style="display:flex;">
+    ‹ Voltar
 </a>
 
 {% endblock %}

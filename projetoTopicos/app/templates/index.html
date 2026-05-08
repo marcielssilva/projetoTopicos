@@ -1,13 +1,36 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="card">
-    <h2>Selecione o setor</h2>
 
-    {% for cat in categorias %}
-        <a href="/categoria/{{ cat }}">
-            <button class="btn">{{ cat }}</button>
-        </a>
-    {% endfor %}
+<div class="page-intro">
+    <h1>Manual do Atendimento</h1>
+    <p>Selecione uma categoria para acessar os fluxos de suporte</p>
 </div>
+
+<div class="card">
+    <div class="card-title">
+        <div class="icon">🗂️</div>
+        Setores de Atendimento
+    </div>
+
+    <div class="cat-grid">
+        <a href="/categoria/Suporte Técnico" class="cat-card">
+            <div class="cat-icon icon-suporte">🛠️</div>
+            Suporte Técnico
+        </a>
+        <a href="/categoria/Financeiro" class="cat-card">
+            <div class="cat-icon icon-financeiro">💰</div>
+            Financeiro
+        </a>
+        <a href="/categoria/Retenção" class="cat-card">
+            <div class="cat-icon icon-retencao">🤝</div>
+            Retenção
+        </a>
+        <a href="/categoria/Conteúdos N2" class="cat-card">
+            <div class="cat-icon icon-n2">⭐</div>
+            Conteúdos N2
+        </a>
+    </div>
+</div>
+
 {% endblock %}

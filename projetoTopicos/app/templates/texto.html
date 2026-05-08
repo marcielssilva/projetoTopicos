@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="breadcrumb">
+    <a href="/">Início</a>
+    <span class="sep">›</span>
+    <a href="/categoria/{{ item.categoria }}">{{ item.categoria }}</a>
+    <span class="sep">›</span>
+    <a href="/conteudos/{{ item.categoria }}/{{ item.subcategoria }}">{{ item.subcategoria }}</a>
+    <span class="sep">›</span>
+    <span class="current">{{ item.titulo }}</span>
+</div>
+
+<div class="card">
+    <div class="card-title">
+        <div class="icon">📝</div>
+        {{ item.titulo }}
+    </div>
+    <p style="font-size:14px; line-height:1.75; color: var(--text);">{{ item.conteudo }}</p>
+</div>
+
+<a href="/conteudos/{{ item.categoria }}/{{ item.subcategoria }}" class="btn btn-back" style="display:flex;">
+    ‹ Voltar
+</a>
+
+{% endblock %}

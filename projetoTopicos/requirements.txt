@@ -1,2 +1,4 @@
-Flask
-pymongo
+flask
+pymongo[srv]
+dnspython
+python-dotenv
