@@ -18,7 +18,6 @@
             --border:     #e2e8f0;
             --text:       #1e293b;
             --muted:      #64748b;
-            --sidebar-w:  240px;
             --header-h:   60px;
             --radius:     12px;
             --shadow:     0 1px 3px rgba(0,0,0,.07), 0 4px 14px rgba(0,0,0,.06);
@@ -31,90 +30,39 @@
             height:var(--header-h);
             background:var(--primary);
             display:flex; align-items:center;
-            padding:0 16px; gap:12px; z-index:200;
+            padding:0 24px; gap:14px; z-index:200;
             box-shadow:0 2px 8px rgba(0,0,0,.2);
         }
-        .hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:4px; border:none; background:transparent; }
-        .hamburger span { display:block; width:22px; height:2px; background:#fff; border-radius:2px; transition:.2s; }
         .header-brand { display:flex; align-items:center; gap:9px; text-decoration:none; color:#fff; flex-shrink:0; }
         .header-logo { width:32px; height:32px; background:rgba(255,255,255,.18); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:17px; }
         .header-name { font-weight:700; font-size:16px; }
         .header-sub  { font-size:10px; opacity:.7; text-transform:uppercase; letter-spacing:.5px; }
 
-        /* Barra de busca */
         .search-bar {
-            flex:1; max-width:420px; margin:0 8px;
+            flex:1; max-width:480px; margin:0 12px;
             display:flex; align-items:center;
             background:rgba(255,255,255,.15); border:1.5px solid rgba(255,255,255,.25);
             border-radius:8px; overflow:hidden; transition:.2s;
         }
         .search-bar:focus-within { background:rgba(255,255,255,.22); border-color:rgba(255,255,255,.5); }
-        .search-bar input {
-            flex:1; background:transparent; border:none; outline:none;
-            color:#fff; font-size:14px; padding:8px 12px;
-            font-family:inherit;
-        }
+        .search-bar input { flex:1; background:transparent; border:none; outline:none; color:#fff; font-size:14px; padding:9px 14px; font-family:inherit; }
         .search-bar input::placeholder { color:rgba(255,255,255,.6); }
-        .search-bar button {
-            background:transparent; border:none; cursor:pointer;
-            padding:8px 12px; color:rgba(255,255,255,.8); font-size:16px;
-            transition:.15s;
-        }
+        .search-bar button { background:transparent; border:none; cursor:pointer; padding:9px 13px; color:rgba(255,255,255,.8); font-size:16px; transition:.15s; }
         .search-bar button:hover { color:#fff; }
 
         .header-right { margin-left:auto; display:flex; align-items:center; gap:8px; }
         .header-admin-btn {
             display:flex; align-items:center; gap:5px;
-            color:rgba(255,255,255,.7); font-size:12px; font-weight:500;
-            text-decoration:none; padding:5px 10px;
-            border:1px solid rgba(255,255,255,.25); border-radius:6px;
-            transition:.15s; white-space:nowrap;
+            color:rgba(255,255,255,.75); font-size:12px; font-weight:500;
+            text-decoration:none; padding:6px 12px;
+            border:1px solid rgba(255,255,255,.25); border-radius:6px; transition:.15s;
         }
         .header-admin-btn:hover { background:rgba(255,255,255,.15); color:#fff; }
 
         /* ── LAYOUT ── */
-        .layout { display:flex; min-height:100vh; padding-top:var(--header-h); }
-
-        /* ── SIDEBAR ── */
-        .sidebar-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.35); z-index:140; }
-        .sidebar {
-            width:var(--sidebar-w); flex-shrink:0;
-            position:fixed; top:var(--header-h); left:0; bottom:0;
-            overflow-y:auto; background:var(--surface);
-            border-right:1px solid var(--border);
-            padding:12px 0 32px; z-index:150; transition:transform .25s;
-        }
-        .nav-section { margin-bottom:2px; }
-        .nav-section-btn {
-            width:100%; display:flex; align-items:center; gap:8px;
-            padding:9px 14px; font-size:13px; font-weight:600;
-            color:var(--text); background:transparent; border:none;
-            cursor:pointer; font-family:inherit; transition:background .15s; text-align:left;
-        }
-        .nav-section-btn:hover { background:#f8fafc; }
-        .nav-section-btn .chevron { margin-left:auto; font-size:11px; color:var(--muted); transition:transform .2s; }
-        .nav-section-btn.open .chevron { transform:rotate(90deg); }
-        .nav-section-icon { width:26px; height:26px; border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:14px; flex-shrink:0; }
-        .icon-suporte   { background:#dbeafe; }
-        .icon-financeiro{ background:#dcfce7; }
-        .icon-retencao  { background:#fef9c3; }
-        .icon-n2        { background:#f3e8ff; }
-        .nav-sub-list { list-style:none; overflow:hidden; max-height:0; transition:max-height .25s ease; }
-        .nav-sub-list.open { max-height:700px; }
-        .nav-sub-list a {
-            display:flex; align-items:center; gap:6px;
-            padding:7px 14px 7px 48px; font-size:13px; color:var(--muted);
-            text-decoration:none; transition:all .15s;
-            border-left:3px solid transparent;
-        }
-        .nav-sub-list a:hover, .nav-sub-list a.active {
-            color:var(--primary); background:var(--primary-lt);
-            border-left-color:var(--primary);
-        }
-
-        /* ── MAIN ── */
-        .main { flex:1; margin-left:var(--sidebar-w); padding:28px 24px 56px; min-width:0; }
-        .container { max-width:740px; }
+        .layout { padding-top:var(--header-h); min-height:100vh; }
+        .main { padding:32px 24px 56px; }
+        .container { max-width:780px; margin:0 auto; }
 
         /* ── BREADCRUMB ── */
         .breadcrumb { display:flex; align-items:center; gap:6px; font-size:12.5px; color:var(--muted); margin-bottom:20px; flex-wrap:wrap; }
@@ -177,28 +125,23 @@
 
         /* ── RESPONSIVO ── */
         @media(max-width:768px){
-            .hamburger { display:flex; }
-            .sidebar { transform:translateX(-100%); }
-            .sidebar.open { transform:translateX(0); }
-            .sidebar-overlay.open { display:block; }
-            .main { margin-left:0; padding:20px 14px 48px; }
+            .main { padding:20px 14px 48px; }
             .cat-grid { grid-template-columns:1fr 1fr; }
             .apoio-grid { grid-template-columns:1fr; }
-            .search-bar { max-width:180px; }
+            .search-bar { max-width:200px; }
             .header-admin-btn span { display:none; }
         }
         footer { text-align:center; padding:20px; font-size:12px; color:#94a3b8; }
     </style>
 </head>
 <body>
+
 <header>
-    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
     <a href="/" class="header-brand">
         <div class="header-logo">📡</div>
         <div><div class="header-name">MHNET</div><div class="header-sub">Manual do Atendimento</div></div>
     </a>
 
-    <!-- Barra de busca -->
     <form class="search-bar" action="/busca" method="get">
         <input type="text" name="q" placeholder="Pesquisar fluxo..." value="{{ request.args.get('q','') }}" autocomplete="off">
         <button type="submit">🔍</button>
@@ -210,61 +153,6 @@
 </header>
 
 <div class="layout">
-    <div class="sidebar-overlay" id="overlay"></div>
-    <nav class="sidebar" id="sidebar">
-        <div class="nav-section">
-            <button class="nav-section-btn" onclick="toggleNav(this)">
-                <span class="nav-section-icon icon-suporte">🛠️</span> Suporte Técnico <span class="chevron">›</span>
-            </button>
-            <ul class="nav-sub-list">
-                <li><a href="/conteudos/Suporte Técnico/Sem Conexão">Sem Conexão</a></li>
-                <li><a href="/conteudos/Suporte Técnico/Lentidão">Lentidão</a></li>
-                <li><a href="/conteudos/Suporte Técnico/Via Rádio">Via Rádio</a></li>
-                <li><a href="/conteudos/Suporte Técnico/Configuração">Configuração</a></li>
-                <li><a href="/conteudos/Suporte Técnico/Telefonia">Telefonia</a></li>
-                <li><a href="/conteudos/Suporte Técnico/Mudança de Endereço">Mudança de Endereço</a></li>
-                <li><a href="/conteudos/Suporte Técnico/Mudança de Ponto Interno">Mudança de Ponto Interno</a></li>
-                <li><a href="/conteudos/Suporte Técnico/Visita Técnica">Visita Técnica</a></li>
-                <li><a href="/conteudos/Suporte Técnico/Conteúdos Adicionais">Conteúdos Adicionais</a></li>
-            </ul>
-        </div>
-        <div class="nav-section">
-            <button class="nav-section-btn" onclick="toggleNav(this)">
-                <span class="nav-section-icon icon-financeiro">💰</span> Financeiro <span class="chevron">›</span>
-            </button>
-            <ul class="nav-sub-list">
-                <li><a href="/conteudos/Financeiro/Renegociação">Renegociação</a></li>
-                <li><a href="/conteudos/Financeiro/Solicitações">Solicitações</a></li>
-                <li><a href="/conteudos/Financeiro/Bloqueios">Bloqueios</a></li>
-                <li><a href="/conteudos/Financeiro/Comprovantes">Comprovantes</a></li>
-                <li><a href="/conteudos/Financeiro/Desbloqueios">Desbloqueios</a></li>
-                <li><a href="/conteudos/Financeiro/Descontos">Descontos</a></li>
-                <li><a href="/conteudos/Financeiro/Aplicação">Aplicação</a></li>
-            </ul>
-        </div>
-        <div class="nav-section">
-            <button class="nav-section-btn" onclick="toggleNav(this)">
-                <span class="nav-section-icon icon-retencao">🤝</span> Retenção <span class="chevron">›</span>
-            </button>
-            <ul class="nav-sub-list">
-                <li><a href="/conteudos/Retenção/Acionamento">Acionamento</a></li>
-                <li><a href="/conteudos/Retenção/Ações Iniciais">Ações Iniciais</a></li>
-                <li><a href="/conteudos/Retenção/Boas Práticas">Boas Práticas</a></li>
-                <li><a href="/conteudos/Retenção/Regra de Ouro">Regra de Ouro</a></li>
-            </ul>
-        </div>
-        <div class="nav-section">
-            <button class="nav-section-btn" onclick="toggleNav(this)">
-                <span class="nav-section-icon icon-n2">⭐</span> Conteúdos N2 <span class="chevron">›</span>
-            </button>
-            <ul class="nav-sub-list">
-                <li><a href="/conteudos/Conteúdos N2/Domínio/E-mail/Site">Domínio/E-mail/Site</a></li>
-                <li><a href="/conteudos/Conteúdos N2/Benefícios">Benefícios</a></li>
-                <li><a href="/conteudos/Conteúdos N2/TI/Plantão">TI/Plantão</a></li>
-            </ul>
-        </div>
-    </nav>
-
     <main class="main">
         <div class="container">
             {% with messages = get_flashed_messages(with_categories=true) %}
@@ -278,39 +166,5 @@
     </main>
 </div>
 
-<script>
-    const hamburger = document.getElementById('hamburger');
-    const sidebar   = document.getElementById('sidebar');
-    const overlay   = document.getElementById('overlay');
-    hamburger.addEventListener('click', () => { sidebar.classList.toggle('open'); overlay.classList.toggle('open'); });
-    overlay.addEventListener('click',   () => { sidebar.classList.remove('open'); overlay.classList.remove('open'); });
-    function toggleNav(btn) {
-        const list   = btn.nextElementSibling;
-        const isOpen = list.classList.contains('open');
-        document.querySelectorAll('.nav-sub-list').forEach(l => l.classList.remove('open'));
-        document.querySelectorAll('.nav-section-btn').forEach(b => b.classList.remove('open'));
-        if (!isOpen) { list.classList.add('open'); btn.classList.add('open'); }
-    }
-    (function highlightActive() {
-        const path = decodeURIComponent(window.location.pathname);
-        document.querySelectorAll('.nav-sub-list a').forEach(a => {
-            if (decodeURIComponent(a.getAttribute('href')) === path) {
-                a.classList.add('active');
-                const list = a.closest('.nav-sub-list');
-                list.classList.add('open');
-                list.previousElementSibling.classList.add('open');
-            }
-        });
-        if (path.startsWith('/categoria/') || path.startsWith('/conteudos/')) {
-            const seg = decodeURIComponent(path.split('/')[2] || '');
-            document.querySelectorAll('.nav-section-btn').forEach(btn => {
-                if (btn.textContent.trim().startsWith(seg)) {
-                    btn.nextElementSibling.classList.add('open');
-                    btn.classList.add('open');
-                }
-            });
-        }
-    })();
-</script>
 </body>
 </html>
