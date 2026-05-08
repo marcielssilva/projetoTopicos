@@ -3,7 +3,7 @@ from bson import ObjectId
 
 class Database:
     def __init__(self):
-        self.client = MongoClient("mongodb://localhost:27017/")
+        self.client = MongoClient("mongodb+srv://lukasilverio94_db_user:7wf153@topidosespeciais.w7givnv.mongodb.net/")
         self.db = self.client["suporte_db"]
         self.colecao = self.db["conteudos"]
 
