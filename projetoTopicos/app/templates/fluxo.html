@@ -1,0 +1,191 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="breadcrumb">
+    <a href="/">Início</a>
+    <span class="sep">›</span>
+    <a href="/categoria/{{ item.categoria }}">{{ item.categoria }}</a>
+    <span class="sep">›</span>
+    <a href="/conteudos/{{ item.categoria }}/{{ item.subcategoria }}">{{ item.subcategoria }}</a>
+    <span class="sep">›</span>
+    <span class="current">{{ item.titulo }}</span>
+</div>
+
+<!-- Cabeçalho -->
+<div class="fluxo-header">
+    <h2>{{ item.titulo }}</h2>
+    {% if item.descricao %}
+        <p>{{ item.descricao }}</p>
+    {% endif %}
+</div>
+
+<!-- Tópicos / Seções -->
+{% for topico in item.topicos %}
+<div class="secao-card">
+    <div class="secao-header">
+        <div class="secao-numero">{{ loop.index }}</div>
+        <div class="secao-titulo">{{ topico.titulo }}</div>
+    </div>
+    <div class="secao-body">
+        <ol class="passos-list">
+            {% for passo in topico.passos %}
+                <li>{{ passo }}</li>
+            {% endfor %}
+        </ol>
+    </div>
+</div>
+{% endfor %}
+
+<!-- Slides do Canva -->
+{% if item.slides_canva %}
+<style>
+.canva-section { margin-bottom: 14px; }
+.canva-card {
+    background: #fff; border-radius: 12px;
+    border: 1.5px solid #ddd6fe;
+    box-shadow: 0 1px 3px rgba(0,0,0,.07), 0 4px 14px rgba(0,0,0,.06);
+    overflow: hidden; margin-bottom: 14px;
+}
+.canva-card-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 18px; cursor: pointer;
+    background: #faf5ff; border-bottom: 1px solid #ede9fe;
+    user-select: none;
+}
+.canva-card-header-left { display: flex; align-items: center; gap: 10px; }
+.canva-card-icon {
+    width: 32px; height: 32px; background: #ede9fe; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center; font-size: 16px;
+}
+.canva-card-title { font-size: 15px; font-weight: 700; color: #5b21b6; }
+.canva-toggle {
+    font-size: 12px; color: #7c3aed; font-weight: 600;
+    display: flex; align-items: center; gap: 4px;
+    background: #ede9fe; border-radius: 6px; padding: 4px 10px;
+}
+.canva-toggle-arrow { transition: transform .25s; display: inline-block; }
+.canva-toggle-arrow.open { transform: rotate(180deg); }
+.canva-body { overflow: hidden; }
+.canva-body.collapsed { display: none; }
+
+/* Carrossel */
+.canva-carousel { position: relative; }
+.canva-slides-wrapper { overflow: hidden; border-radius: 0; }
+.canva-slides-track {
+    display: flex; transition: transform .35s ease;
+}
+.canva-slide { min-width: 100%; }
+.canva-slide iframe { width: 100%; height: 420px; border: none; display: block; }
+
+.canva-controls {
+    display: flex; align-items: center; justify-content: center;
+    gap: 12px; padding: 12px 16px;
+    background: #f5f3ff; border-top: 1px solid #ede9fe;
+}
+.canva-ctrl {
+    width: 34px; height: 34px; border-radius: 50%;
+    border: 1.5px solid #ddd6fe; background: #fff;
+    cursor: pointer; font-size: 16px; font-weight: 700; color: #7c3aed;
+    display: flex; align-items: center; justify-content: center;
+    transition: .15s;
+}
+.canva-ctrl:hover:not(:disabled) { background: #ede9fe; }
+.canva-ctrl:disabled { opacity: .35; cursor: default; }
+.canva-dots { display: flex; gap: 6px; align-items: center; }
+.canva-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: #c4b5fd; cursor: pointer; transition: .15s;
+}
+.canva-dot.active { width: 20px; border-radius: 4px; background: #7c3aed; }
+.canva-counter { font-size: 12px; color: #7c3aed; font-weight: 600; }
+.canva-link-bar {
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 16px; background: #faf5ff;
+    font-size: 12px; color: #7c3aed; border-top: 1px solid #ede9fe;
+}
+.canva-link-bar a { color: #5b21b6; text-decoration: none; font-weight: 600; }
+.canva-link-bar a:hover { text-decoration: underline; }
+
+@media(max-width:600px) { .canva-slide iframe { height: 260px; } }
+</style>
+
+<div class="canva-section">
+    {% for slide in item.slides_canva %}
+    <div class="canva-card">
+        <div class="canva-card-header" onclick="toggleCanva(this)">
+            <div class="canva-card-header-left">
+                <div class="canva-card-icon">🎨</div>
+                <div class="canva-card-title">{{ slide.titulo }}</div>
+            </div>
+            <div class="canva-toggle">
+                <span>Slides</span>
+                <span class="canva-toggle-arrow open">▼</span>
+            </div>
+        </div>
+        <div class="canva-body">
+            <div class="canva-carousel" data-total="1">
+                <div class="canva-slides-wrapper">
+                    <div class="canva-slides-track">
+                        <div class="canva-slide">
+                            <iframe
+                                src="{{ slide.link }}"
+                                allowfullscreen
+                                allow="fullscreen"
+                                loading="lazy">
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="canva-link-bar">
+                🔗 <a href="{{ slide.link.replace('?embed','') }}" target="_blank">Abrir no Canva ↗</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<script>
+function toggleCanva(header) {
+    const body  = header.nextElementSibling;
+    const arrow = header.querySelector('.canva-toggle-arrow');
+    const open  = !body.classList.contains('collapsed');
+    body.classList.toggle('collapsed', open);
+    arrow.classList.toggle('open', !open);
+}
+</script>
+{% endif %}
+
+<!-- Material(ais) de Apoio -->
+{% if item.material_apoio %}
+<div class="card">
+    <div class="card-title" style="margin-bottom:12px;">
+        <div class="icon">📘</div>
+        Material de Apoio
+    </div>
+
+    {% if item.material_apoio is iterable and item.material_apoio is not string and item.material_apoio is not mapping %}
+        <div class="apoio-grid">
+            {% for m in item.material_apoio %}
+                <a href="{{ m.link }}" target="_blank" class="btn btn-apoio" style="margin-bottom:0;">
+                    📎 {{ m.titulo }}
+                    <span class="btn-arrow" style="color:rgba(255,255,255,.7)">↗</span>
+                </a>
+            {% endfor %}
+        </div>
+    {% else %}
+        <a href="{{ item.material_apoio.link }}" target="_blank" class="btn btn-apoio">
+            📎 {{ item.material_apoio.titulo }}
+            <span class="btn-arrow" style="color:rgba(255,255,255,.7)">↗</span>
+        </a>
+    {% endif %}
+</div>
+{% endif %}
+
+<!-- Voltar -->
+<a href="/conteudos/{{ item.categoria }}/{{ item.subcategoria }}" class="btn btn-back" style="display:flex;">
+    ‹ Voltar
+</a>
+
+{% endblock %}
